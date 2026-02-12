@@ -1,0 +1,187 @@
+#include <iostream>
+#include "matrix_library.h"
+
+using namespace std;
+
+int main() {
+int rows, cols;
+int A[10][10], B[10][10], result[10][10];
+ std::cout << "rows cols(1..10): ";
+std::cin >> rows >> cols;
+
+if(rows<=0 || cols<=0 || rows > 10 || cols>10){
+    cout <<"Error\n";
+    return 0;
+}
+cout << "Enter matrix A(" << rows << "x" << cols << "):\n";
+for(int i=0; i<rows; i++){
+    for(int j=0; j<cols; j++){
+        cin >> A[i][j];
+    }
+}
+
+cout << "Enter matrix B (" << rows << "x" << cols << "):\n";
+for (int i=0; i<rows; i++){
+    for (int j=0; j<cols; j++){
+        cin >> B [i][j];
+    }
+}
+//add
+addMatrix(rows, cols, A, B , result);
+cout << "A+B:" << std::endl;
+for (int i=0; i<rows; i++){
+    for(int j=0; j<cols; j++){
+        cout << result[i][j] << " ";
+    }
+    cout << endl;
+}
+//subtract
+subtractMatrix(rows, cols, A, B, result);
+cout <<" A-B:";
+for (int i=0; i<rows; i++){
+    for(int j=0; j<cols; j++){
+        cout << result[i][j] << " ";
+    }
+    cout << endl;
+}
+//scalar
+int scalar;
+cout << "Enter scalar: ";
+cin >> scalar;
+
+scalarMatrix(rows, cols, A, scalar, result);
+cout << "A*scalar:" ;
+for (int i=0; i<rows; i++){
+    for(int j=0; j<cols; j++){
+        cout << result[i][j] << " ";
+    }
+    cout << endl;
+}
+//multipy
+
+if (cols == rows){
+ multipyMatrix(rows, cols, A, rows, cols, B, result);
+    cout << "A*B:";
+    for (int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+        cout << result[i][j] << " ";
+    }
+    cout << endl;
+ }
+}
+else{
+    cout << "Matrix multiplication not possible\n";
+}
+//transpose
+transposeMatrix(rows, cols, A, result);
+cout << "transpose A:";
+for (int i=0; i<rows; i++){
+        for(int j=0; j<cols; j++){
+        cout << result[i][j] << " ";
+    }
+    cout << endl;
+}
+
+int n;
+int vA[10], vB[10], vR[10];
+
+cout << "Enter n:";
+cin >> n;
+if (n<=0 || n>10){
+    cout << "Error\n";
+    return 0;
+}
+cout <<"Enter vector A:\n";
+for (int i=0; i<n; i++)
+{
+    cin >> vA[i];
+}
+cout << "Enter vector B:\n";
+for (int i=0; i<n; i++){
+        cin >> vB[i];
+}
+addvector(n, vA, vB, vR);
+
+cout << "A + B =";
+for (int i= 0; i <n; i++){
+        cout << vR[i] << " ";
+}
+    cout << endl;
+    //subtract
+    subtractvector(n, vA, vB, vR);
+
+cout << "A - B =";
+for (int i= 0; i <n; i++){
+        cout << vR[i] << " ";
+}
+    cout << endl;
+
+    int scalarv;
+    cout << "Enter scalar for vector A:";
+    cin >> scalarv;
+
+    scalarvector(n, vA, scalarv, vR);
+
+    cout << "scalar * A=";
+    for(int i=0; i<n; i++){
+        cout << vR[i] << " ";
+    }
+    cout << endl;
+//dot
+    int dot = dotvector(n, vA, vB);
+    cout << " A . B=" << dot << endl;
+
+    //cross
+    if(n == 3){
+        crossvector(vA, vB, vR);
+
+        cout << "A*B=";
+        for(int i=0; i<3; i++){
+            cout << vR[i] << " ";
+        }
+        cout << endl;
+    }
+    else{
+        cout << "only works for n=3" << endl;
+    }
+    //mag
+    double mag = magnitudevector(n, vA);
+    cout << "|A|=" << mag << endl;
+
+    //normalize
+    double normA[10];
+
+    normalizevector(n, vA, normA);
+
+    cout << "normalize A = ";
+    for(int i=0; i<n; i++){
+        cout << normA[i] << " ";
+    }
+    cout << endl;
+
+    //dererminantrecursive
+
+    int detR = determinantrecursive(rows, cols, A);
+    cout << "detR recursive=" << detR << endl;
+
+ //inverse
+
+ double inv[10][10];
+
+ cout << "Enter rows and cols:";
+ cin >> rows >> cols;
+ cout << "Enter matrix A(" << rows << "x" << cols <<"):\n";
+ for(int i=0; i<rows; i++)
+    for(int j=0; j<cols; j++)
+    cin >> A[i][j];
+ inverseMatrix(rows, cols, A, inv);
+ if(rows == 2 && cols== 2){
+    cout << "Inverse of A:\n";
+    for(int i=0; i<2; i++){
+        for(int j=0; j<2; j++)
+            cout << inv[i][j] << " ";
+        cout << endl;
+    }
+ }
+    return 0;
+    }
